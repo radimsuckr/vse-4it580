@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { useTodoList } from 'src/modules/todo/hooks';
-import { Box, Button, Heading, Input } from 'src/shared/design-system';
+import { Button, Heading, Input } from 'src/shared/design-system';
+import { Box, VStack, Checkbox, IconButton, Tabs, Tab, TabList } from '@chakra-ui/react';
+import { DeleteIcon } from '@chakra-ui/icons';
+
+const STATES = ['all', 'completed', 'not-completed'];
 
 export function Practical02Page() {
-  const { items, addItem, setItemCompleted } = useTodoList();
+  const { items, addItem, setItemCompleted, deleteItem, filter, setFilter } = useTodoList();
   const [newItemName, setNewItemName] = useState('');
 
   return (
@@ -29,20 +33,42 @@ export function Practical02Page() {
         />
         <Button type="submit">Add</Button>
       </form>
-      <ul>
-        {items.map((item) => (
-          <li key={item.id}>
-            <label>
-              <input
-                type="checkbox"
+
+      <Tabs
+        index={STATES.indexOf(filter)}
+        onChange={(index) => setFilter(STATES[index])}
+        variant="soft-rounded"
+        colorScheme="blue"
+      >
+        <TabList>
+          <Tab>All</Tab>
+          <Tab>Completed</Tab>
+          <Tab>Not completed</Tab>
+        </TabList>
+      </Tabs>
+      <VStack>
+        {items
+          .filter((item) => filter === 'all'
+            || (filter === 'completed' && item.isCompleted)
+            || (filter === 'not-completed' && !item.isCompleted)
+          )
+          .map((item) => (
+            <Box key={item.id}>
+              <Checkbox
                 onChange={() => setItemCompleted(item.id, !item.isCompleted)}
-                checked={item.isCompleted}
-              />{' '}
-              {item.name}
-            </label>
-          </li>
-        ))}
-      </ul>
+                isChecked={item.isCompleted}
+              >
+                {item.name}
+                <IconButton
+                  colorScheme="red"
+                  aria-label="Delete item"
+                  icon={<DeleteIcon />}
+                  onClick={() => deleteItem(item.id)}
+                />
+              </Checkbox>
+            </Box>
+          ))}
+      </VStack>
     </Box>
   );
 }
