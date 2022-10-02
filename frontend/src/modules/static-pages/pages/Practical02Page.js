@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTodoList } from 'src/modules/todo/hooks';
 import { Button, Heading, Input } from 'src/shared/design-system';
-import { Box, VStack, Checkbox, IconButton, Tabs, Tab, TabList } from '@chakra-ui/react';
+import { Box, Spacer, Flex, VStack, Checkbox, IconButton, Tabs, Tab, TabList } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 
 const STATES = ['all', 'completed', 'not-completed'];
@@ -46,27 +46,40 @@ export function Practical02Page() {
           <Tab>Not completed</Tab>
         </TabList>
       </Tabs>
-      <VStack>
+      <VStack border="1px" borderColor="gray.500" borderRadius="base">
         {items
           .filter((item) => filter === 'all'
             || (filter === 'completed' && item.isCompleted)
             || (filter === 'not-completed' && !item.isCompleted)
           )
           .map((item) => (
-            <Box key={item.id}>
+            <Flex
+              key={item.id}
+              w="100%"
+              px="2"
+              py="1"
+              borderRadius="base"
+              role="group"
+              _hover={{ bg: '#eee', color: 'black', }}
+            >
               <Checkbox
                 onChange={() => setItemCompleted(item.id, !item.isCompleted)}
                 isChecked={item.isCompleted}
               >
-                {item.name}
-                <IconButton
-                  colorScheme="red"
-                  aria-label="Delete item"
-                  icon={<DeleteIcon />}
-                  onClick={() => deleteItem(item.id)}
-                />
+                <Box color={item.isCompleted ? 'grey' : 'black'}>
+                  {item.isCompleted ? <del>{item.name}</del> : item.name}
+                </Box>
               </Checkbox>
-            </Box>
+              <Spacer />
+              <IconButton
+                colorScheme="red"
+                aria-label="Delete item"
+                icon={<DeleteIcon />}
+                onClick={() => deleteItem(item.id)}
+                visibility="hidden"
+                _groupHover={{ visibility: 'visible', }}
+              />
+            </Flex>
           ))}
       </VStack>
     </Box>
