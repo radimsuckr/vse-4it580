@@ -1,14 +1,19 @@
 import {
-  Heading,
-  Paragraph,
-  StackDivider,
   BodyBackground,
-  Stack,
-  Textarea,
-  Select,
-  Switch,
-  RadioGroup,
+  Box,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Paragraph,
   Radio,
+  RadioGroup,
+  Select,
+  Spacer,
+  Stack,
+  StackDivider,
+  Switch,
+  Textarea,
 } from 'src/shared/design-system';
 
 import { FormField } from 'src/shared/hook-form';
@@ -39,13 +44,53 @@ export function Practical03Page() {
             },
           }}
         >
-          <Select>
-            <option value="public">Public</option>
-            <option value="friends">Only friends</option>
-            <option value="private">Private</option>
-          </Select>
-          <Switch> Agree to Terms and Conditions</Switch>
+          <Stack mb='4' direction='row'>
+            <Box w='50%'>
+              <FormControl>
+                <FormLabel>First name</FormLabel>
+                <Input type='text' />
+              </FormControl>
+            </Box>
+            <Box w='50%'>
+              <FormControl>
+                <FormLabel>Last name</FormLabel>
+                <Input type='text' />
+              </FormControl>
+            </Box>
+          </Stack>
+          <Box mb='4' w='55%'>
+            <FormControl>
+              <FormLabel>User name</FormLabel>
+              <Input type='text' />
+            </FormControl>
+          </Box>
+          <Box mb='4' w='55%'>
+            <FormControl>
+              <FormLabel>Email address</FormLabel>
+              <Input type='email' />
+            </FormControl>
+          </Box>
+          <Box mb='4' w='100%'>
+            <FormControl>
+              <FormLabel>Profile bio</FormLabel>
+              <Textarea />
+            </FormControl>
+          </Box>
+          <Box mb='4' w='100%'>
+            <FormControl>
+              <FormLabel>Profile visibility</FormLabel>
+              <Select>
+                <option value="public">Public</option>
+                <option value="friends">Only friends</option>
+                <option value="private">Private</option>
+              </Select>
+            </FormControl>
+          </Box>
+          <Box w='100%'>
+            <Switch> Agree to Terms and Conditions</Switch>
+          </Box>
         </SettingsSection>
+        <StackDivider p='4' />
         <SettingsSection
           title="Notifications"
           description="Setup how much notification you will receive"
@@ -61,7 +106,7 @@ export function Practical03Page() {
           <RadioGroup>
             <Heading as="h5">Notify me</Heading>
             <Paragraph>When you should be notified:</Paragraph>
-            <Stack>
+            <Stack pl='4'>
               <Radio value="all">Every time someone quacks</Radio>
               <Radio value="mentions">Only mentions (@username)</Radio>
               <Radio value="never">Never</Radio>
