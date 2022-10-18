@@ -8,9 +8,6 @@ const resolvers = {
   Query: {
     ...queries,
   },
-  Mutation: {
-    ...mutations,
-  },
   Quack: {
     async user(parent, _, { dbConnection }) {
       return (

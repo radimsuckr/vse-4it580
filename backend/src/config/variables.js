@@ -2,7 +2,7 @@ import dotenv from 'dotenv-flow';
 
 dotenv.config();
 
-export const MOCKS = process.env.MOCKS;
+export const MOCKS = process.env.MOCKS === 'true';
 export const PORT = process.env.PORT;
 export const JWT_SECRET = process.env.JWT_SECRET;
 export const DB_HOST = process.env.DB_HOST;

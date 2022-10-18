@@ -1,5 +1,5 @@
 export const typeDef = /* GraphQL */ `
-  extend type Query {
+  type Query {
     users: [User!]!
     user(userName: String!): User
   }
