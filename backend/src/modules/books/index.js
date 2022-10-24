@@ -1,4 +1,5 @@
 import { typeDef } from './schema';
+import * as mutations from './mutation'
 import * as queries from './query';
 
 export { typeDef, resolvers };
@@ -7,7 +8,9 @@ const resolvers = {
   Query: {
     ...queries,
   },
-  Mutation: {},
+  Mutation: {
+    ...mutations,
+  },
   Book: {
     async authors({ id }, _args, { dbConnection }) {
       return dbConnection.query(
